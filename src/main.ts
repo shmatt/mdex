@@ -13,9 +13,9 @@ export async function run(): Promise<void> {
 
 		// Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
 		const pattern = path.join(rootPath, '**/*.md');
-		core.debug(`Reading markdown files from ${path}`);
+		core.debug(`Reading markdown files from ${pattern}`);
 
-		const globber = await glob.create(`${path}/**/*.md`);
+		const globber = await glob.create(pattern);
 		for await (const file of globber.globGenerator()) {
 			core.debug(`Found file: ${file}`);
 		}
