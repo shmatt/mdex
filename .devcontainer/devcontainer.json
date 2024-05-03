@@ -4,7 +4,13 @@
 	"postCreateCommand": "npm install",
 	"customizations": {
 		"codespaces": {
-			"openFiles": ["README.md"]
+			"repositories": {
+				"shmatt/journal": {
+					"permissions": {
+						"contents": "read"
+					}
+				}
+			}
 		},
 		"vscode": {
 			"extensions": [
