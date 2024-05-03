@@ -2,6 +2,7 @@ import * as core from '@actions/core'
 import * as glob from '@actions/glob'
 import { wait } from './wait'
 import path from 'path'
+import { promises as fs } from 'fs'
 
 /**
  * The main function for the action.
@@ -18,6 +19,19 @@ export async function run(): Promise<void> {
 		const globber = await glob.create(pattern);
 		for await (const file of globber.globGenerator()) {
 			core.debug(`Found file: ${file}`);
+			// Read the file
+			const content = await fs.readFile(file, 'utf8');
+			const stats = await fs.stat(file);
+			const fileStats = {
+				ctime: stats.ctime.getTime(),
+				mtime: stats.mtime.getTime(),
+				size: stats.size
+			};
+
+			// extract frontmatter
+
+			// Parse the file
+			// core.debug(`Parsed page: ${page}`);
 		}
 
 	} catch (error) {
