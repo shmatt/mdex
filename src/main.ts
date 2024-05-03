@@ -1,26 +1,27 @@
 import * as core from '@actions/core'
+import * as glob from '@actions/glob'
 import { wait } from './wait'
+import path from 'path'
 
 /**
  * The main function for the action.
  * @returns {Promise<void>} Resolves when the action is complete.
  */
 export async function run(): Promise<void> {
-  try {
-    const ms: string = core.getInput('milliseconds')
+	try {
+		const rootPath = core.getInput('path') || '~/Journal'
 
-    // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
-    core.debug(`Waiting ${ms} milliseconds ...`)
+		// Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
+		const pattern = path.join(rootPath, '**/*.md');
+		core.debug(`Reading markdown files from ${path}`);
 
-    // Log the current timestamp, wait, then log the new timestamp
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
+		const globber = await glob.create(`${path}/**/*.md`);
+		for await (const file of globber.globGenerator()) {
+			core.debug(`Found file: ${file}`);
+		}
 
-    // Set outputs for other workflow steps to use
-    core.setOutput('time', new Date().toTimeString())
-  } catch (error) {
-    // Fail the workflow run if an error occurs
-    if (error instanceof Error) core.setFailed(error.message)
-  }
+	} catch (error) {
+		// Fail the workflow run if an error occurs
+		if (error instanceof Error) core.setFailed(error.message)
+	}
 }
