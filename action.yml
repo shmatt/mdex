@@ -23,6 +23,8 @@ inputs:
 outputs:
   indexPath:
     description: 'The path to the generated index file'
+  json:
+    description: 'The json index objext as a string'
 
 runs:
   using: node20

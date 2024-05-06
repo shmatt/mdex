@@ -48,11 +48,14 @@ export async function run(): Promise<void> {
 
     core.info(`Processed ${fileCount} files with ${errorCount} errors`)
 
+    const json = JSON.stringify(index, null, 2)
+
     // Write the index to the output file
-    await fs.writeFile(output, JSON.stringify(index, null, 2))
+    await fs.writeFile(output, json)
 
     core.info(`Wrote index to ${output}`)
     core.setOutput('indexPath', output)
+    core.setOutput('json', json)
   } catch (error) {
     // Fail the workflow run if an error occurs
     if (error instanceof Error) core.setFailed(error.message)

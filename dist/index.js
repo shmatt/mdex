@@ -31691,10 +31691,12 @@ async function run() {
             }
         }
         core.info(`Processed ${fileCount} files with ${errorCount} errors`);
+        const json = JSON.stringify(index, null, 2);
         // Write the index to the output file
-        await fs_1.promises.writeFile(output, JSON.stringify(index, null, 2));
+        await fs_1.promises.writeFile(output, json);
         core.info(`Wrote index to ${output}`);
         core.setOutput('indexPath', output);
+        core.setOutput('json', json);
     }
     catch (error) {
         // Fail the workflow run if an error occurs
