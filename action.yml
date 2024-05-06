@@ -1,23 +1,28 @@
-name: 'mdex'
-description: 'Generates indexes and vector embeddings from markdown files'
+name: 'Markdown frontmatter index'
+description:
+  'Generates a json index of frontmatter extracted from markdown files'
 author: 'shmatt'
 
 # Add your action's branding here. This will appear on the GitHub Marketplace.
 branding:
-  icon: 'heart'
-  color: 'red'
+  icon: 'align-right'
+  color: 'orange'
 
 # Define your inputs here.
 inputs:
-  path:
-    description: 'The root path to the markdown files'
+  pattern:
+    description: 'A glob pattern matching the files to parse for frontmatter'
     required: false
-    default: '/'
+    default: '**/*.md'
+  output:
+    description: 'The path to write the json file to'
+    required: false
+    default: 'index.json'
 
 # Define your outputs here.
 outputs:
-  time:
-    description: 'Your output description here'
+  indexPath:
+    description: 'The path to the generated index file'
 
 runs:
   using: node20

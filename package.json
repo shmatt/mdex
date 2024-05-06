@@ -71,6 +71,7 @@
     "@types/luxon": "^3.4.2",
     "@types/parsimmon": "^1.10.9",
     "emoji-regex": "^10.3.0",
+    "front-matter": "^4.0.2",
     "luxon": "^3.4.4",
     "obsidian-dataview": "^0.5.66",
     "parsimmon": "^1.18.1"
